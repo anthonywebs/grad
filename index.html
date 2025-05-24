@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+  	<meta name="description" content="University of Pennsylvania">
+    <meta property="og:title" content="University of Pennsylvania">
+    <meta property="og:description" content="Graduation Photos by Anthony Kim">
+    <meta property="og:image" content="./img/thumb.jpg">
+    
+    <title>Graduation Photos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Babylonica&family=Caveat&display=swap" rel="stylesheet">
+    <link href="./css/index.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="./img/favi.png" type="image/x-icon"/>
+  </head>
+  <body>
+    <header role='banner' id='js-image' class='header'>
+      <div id='js-landing' class='main_landing'>
+        <!-- <img id='js-main-img1' class='intro fi' src="./img/main1.jpg">
+        <img id='js-main-img2' class='intro fi' src="./img/main2.jpg">
+        <img id='js-main-img3' class='intro fi' src="./img/main3.jpg"> -->
+        <!-- only for the 2nd map -->
+        <img id='js-main-img-next' class='intro fi' src="./img/main_next.jpg">
+      </div>
+    </header>
+    <div id='js-page-loader' class="page_loader hidden">
+      <center>
+        <img id='js-page-loader-img' style="opacity:0.7;" src="./img/loading-1.gif"><BR/>
+        Loading...
+      </center>
+    </div>
+    <main role='main' class='main_bg'>
+      <div id='js-bottom' class=''>
+        <!-- <div id='js-btn-mute'  onclick="stopMusic()" class="fi_short mute_icon hidden" style="background-color:transparent !important;cursor:pointer">
+          <i class="fa fa-stop-circle-o" style="color:rgb(255,255,255,0.6);font-size:28px;"></i>
+          </span>
+        </div> -->
+          <audio
+            id='js-audio'
+            controls hidden
+            src="./media/grad.m4a">
+            Your browser does not support the audio element.
+          </audio>
+  
+        <div id="js-cover-greeting" class="new_landing">
+          <div id="js-greeting-text">
+            <section id='js-name2' class="font_m letter_wide inline_center no_margin fi">&nbsp;</section>
+            <center>
+              <img id='js-landing' class='landing_logo fi_short' src="./img/grad_logo.jpg">
+            </center>            
+            <div id='js-msg' class='font_detail main_flex w300 fi' style="margin-top: -20px;margin-bottom: 10px;">
+              University of Pennsylvania<BR/>
+            </div>
+            <div id='js-date' class='font_detail main_flex w300 fi_short'>
+              JULY &nbsp; | &nbsp; 15 &nbsp; | &nbsp; 2023<BR/><BR/><BR/><BR/>
+            </div>
+            <div id='js-btn-more' class="main_flex">
+              <button type="submit" onclick="playMusic()" class="btn_black fi_short more_pic">
+                <i class="fa fa-film fa-spin" style="font-size:24px;"></i><section class='btn_ft'>&nbsp; Gallery</section>
+              </button>
+            </div> 
+            <div id='js-warning' class='main_flex w300 red fi_short'>
+              <BR/>
+              * Please beware of music<BR/><BR/><BR/><BR/>
+            </div>      
+          </div>
+        </div>
+        <div id='js-greeting' class='greeting fi_short'><br/>
+
+          <div id="js-msg-bottom" class="">
+            <div id="js-music-info" class="fi_short">
+              <div class="bgcolor_white marquee_title">
+                  <center>Currently playing..</center>
+              </div>
+              <div class="bgcolor_white" style="position: relative;">
+                <div class="marquee">
+                  <span id="js-music-title">
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div id='js-btn-mute-2' class="main_flex bgcolor_white">
+              <button type="submit" onclick='stopMusic()' class="btn_black_s fi">
+                <i class="fa fa-stop-circle-o" style="font-size:22px;"></i>
+                <section style="line-height: 22px;">&nbsp Stop</section>
+              </button> 
+              &nbsp;&nbsp;&nbsp;
+              <button type="submit" onclick="playNext()" class="btn_black_s fi">
+                <i class="fa fa-fast-forward" style="font-size:16px;margin-top:2px;"></i>
+                <section style="line-height: 22px;">&nbsp Play Next</section>
+              </button>
+            </div><BR/>
+
+            <div class='font_detail main_flex w300 fi_short'>
+              PLEASE SCROLL THE SCREEN
+            </div>
+            <div id='js-date' class='main_flex w300 fi_short'>
+                <img src='./img/down-arrow.gif' class="down_arrow">
+            </div><BR/><BR/>  
+          </div>
+        </div>  
+
+        <div id='js-loader' class="loader">
+          <center>
+            <img id='js-loader-img' src="./img/loading-6.gif">
+          </center>
+        </div>
+
+        <div id='js-more-pic' class='more_pic'>
+          <div class="bgcolor_white">
+            <BR/><BR/>
+            <div id='js-logo-wrap' class='main_flex' style='background-color:#fff;'>
+              <a href='https://photo.anthonyspace.com'>
+                <img id='js-mobile-logo' class='mobile_icon' src='./img/logo-s-blk.png'>
+              </a>
+            </div><br/><br/>
+          </div>
+
+          <center>
+            <div class="bgcolor_white">
+              <img class='inline_center img_l img_no' src="./img/52.jpg"><BR/>
+              <img class='inline_center img_l img_no' src="./img/20.jpg">
+            </div>
+            <div class="top_padding_m trans" ></div><BR/><BR/><BR/>
+            <div class="opacity_bg" >
+              <img class='inline_center img_l img_no margin_top_neg bottom_neg trans' src="./img/24.png"><BR/>
+            </div>
+            <div class="bgcolor_white margin_l"><BR/><BR/>
+              <img class='inline_center img_l img_no' src="./img/30.jpg"><BR/>
+              <!-- <img class='inline_center img_l img_no no_margin' src="./img/26.jpg"><BR/><BR/><BR/><BR/> -->
+              <img class='inline_center img_l img_no' src="./img/lib.jpg"><BR/>
+            </div>
+            <!-- <img class='inline_center img_l img_no padding_added' src="./img/51.jpg"><BR/> -->
+            <div class="bgcolor_white">
+              <img class='inline_center img_l img_no' src="./img/logo.jpg"><BR/>
+              <img class='inline_center img_l img_no' src="./img/50.jpg"><BR/>
+              <img class='inline_center img_l img_no margin_top_neg' src="./img/st.jpg"><BR/>
+              <img class='inline_center img_l img_no margin_top_neg' src="./img/statue.jpg"><BR/>
+              <img class='inline_center img_l img_no margin_top_neg' src="./img/23.jpg"><BR/>
+              <img class='inline_center img_l img_no margin_top_neg' src="./img/red.jpg"><BR/>
+              <img class='inline_center img_l img_no margin_top_neg' src="./img/fly.jpg"><BR/>
+              <img class='inline_center img_l img_no margin_top_neg' src="./img/green.jpg"><BR/>
+              <img class='inline_center img_l img_no margin_top_neg' src="./img/back.jpg"><BR/>
+            </div>
+          </center>            
+        </div>
+      </div>
+    </main>
+    <div id='js-copy-right' class='copy_right bgcolor_white fi'>
+      <!-- <div class='inline_center'> -->
+        <!-- <a href="https://photo.anthonyspace.com">
+          https://photo.anthonyspace.com
+        </a> -->
+        <!-- <br /><br /> -->
+      <!-- </div> -->
+    © 2023 Anthony Photography</div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="./js/index.js"></script>
+  </body>
+</html>
