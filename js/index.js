@@ -97,18 +97,6 @@ function fadeOut(i, height) {
     // $('#js-cover-greeting').css('opacity', 1);
 
     setTimeout(() => {
-      // $('#js-cover-greeting').css('background-image', 'url(' + './img/main-4.jpg' + ')');
-      // $('#js-cover-greeting').css('opacity', 1);
-      // $('#js-landing').css('position', 'fixed');
-      // $('#js-cover-greeting').css('display', 'none');
-      $('#js-page-loader').css('display', 'none');
-      $('#js-more-pic').css('display', 'block');
-      $('#js-btn-mute').css('display', 'flex');
-      $('#js-msg-bottom').css('display', 'block');
-      $('#js-greeting').css('display', 'block');
-      $('#js-copy-right').css('display', 'block');
-
-      $('#js-landing').css('height', height);
       return;
       }, 200);
       return;
@@ -126,16 +114,26 @@ function fadeOutCircle(i, height) {
     $('#js-cover-greeting').css('opacity', 1);
     setTimeout(()=>{
       $('#js-landing').css('background-image', `url('./img/main-4${!isLandscape() ? 'm' : ''}.jpg')`);
+
+      $('#js-page-loader').css('display', 'none');
+      $('#js-more-pic').css('display', 'block');
+      $('#js-btn-mute').css('display', 'flex');
+      $('#js-msg-bottom').css('display', 'block');
+      $('#js-greeting').css('display', 'block');
+      $('#js-copy-right').css('display', 'block');
+
+      $('#js-landing').css('height', height);
+
       setTimeout(()=> {
         return fadeOut(100, height);
-      }, 2000);
+      }, 1000);
     }, 100);
     return;
   }
   setTimeout(() => {
     $('#js-cover-greeting').css('opacity', i*0.01);
     fadeOutCircle(i-1, height);
-  }, i > 80 ? 40 : 10);
+  }, i > 80 ? 50 : 10);
 
 
 }
@@ -168,7 +166,6 @@ function changeBackground() {
 }
 
 function stopMusic() {
-  console.log("AK: here")
   document.getElementById('js-audio').pause();
   $('#js-btn-mute').hide();
   $('#js-btn-mute-2').hide();
@@ -230,6 +227,7 @@ function renderMainImage() {
   $('#js-2').attr('src', getSrc('1-window'));
   $('#js-4').attr('src', getSrc('6-bart'));
   $('#js-5').attr('src', getSrc('1-horse'));
+  $('#js-5a').attr('src', getSrc('7-class'));
   // $('#js-6').attr('src', getSrc('1-horse'));
   $('#js-6').attr('src', getSrc('8-thennow'));
   // $('#js-6').attr('src', getSrc('9-group'));
