@@ -204,7 +204,10 @@ body {
 
 .pad-top {
   padding-top: 36px;
+}
 
+.pad-bot {
+  padding-bottom: 36px;
 }
 
 .bottom_neg {

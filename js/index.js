@@ -224,14 +224,15 @@ function renderMainImage() {
   $('.intro').css('top', 0);
   // $('.intro').css('height', isLandscape ? '796px' : '1vh');
 
-  $('#js-0').attr('src', getSrc('1-horse'));
+  // $('#js-0').attr('src', getSrc('1-horse'));
   $('#js-1').attr('src', getSrc('1-book2'));
   // $('#js-2').attr('src', getSrc('2-book'));
   $('#js-2').attr('src', getSrc('1-window'));
   $('#js-4').attr('src', getSrc('6-bart'));
-  $('#js-5').attr('src', getSrc('5-indoor'));
+  $('#js-5').attr('src', getSrc('1-horse'));
   // $('#js-6').attr('src', getSrc('1-horse'));
-  $('#js-6').attr('src', getSrc('9-group'));
+  $('#js-6').attr('src', getSrc('8-thennow'));
+  // $('#js-6').attr('src', getSrc('9-group'));
   $('#js-7').attr('src', getSrc('5-sol'));
 
 
