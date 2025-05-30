@@ -103,7 +103,7 @@ const displayAudioEffect = () => {
 
     // Load the image of "Diane" once
   const image = new Image();
-  image.src = '/img/diane2.png';  // Path to your "Diane" image
+  image.src = './img/diane2.png';  // Path to your "Diane" image
   
   // Wait for the image to load before using it
   image.onload = () => {
@@ -421,11 +421,4 @@ async function slideShowPlay() {
 $(_=> {
   handleEvent();
   renderMainImage();
-
-  setTimeout(() => {
-    const topCanvas = document.getElementById('js-top-visualizer');
-    console.log("offsetWidth after DOM ready:", topCanvas.offsetWidth);
-
-  }, 1000);
-
 });
