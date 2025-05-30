@@ -6,6 +6,7 @@ let CURRENT_PIC = PIC_LIST.length - 1;
 let SLIDE_STOP = false;
 let SCROLL_HEIGHT = 0;
 let SCROLL_DETECT_DONE = false;
+let IS_WAVE_TOP = true; // music effect top or bottom
 
 const SONG_LIST = [
   {
@@ -16,28 +17,28 @@ const SONG_LIST = [
   }, 
   {
     owner: 'Anthony',
+    title: 'Limahl - Never Ending Story',
+    path: './media/neverending.m4a',
+    weight: 20,
+  }, 
+  {
+    owner: 'Anthony',
+    title: 'UP - Married Life',
+    path: './media/up.mp3',
+    weight: 10,
+  }, 
+  {
+    owner: 'Anthony',
+    title: 'Kina Grannis - Can\'t Help Falling In Love',
+    path: './media/song-fallin.m4a',
+    weight: 10,
+  }, 
+  {
+    owner: 'Anthony',
     title: 'One Republic - Good Life',
     path: './media/goodlife.m4a',
     weight: 20,
   }, 
-  // {
-  //   owner: 'Anthony',
-  //   title: 'Limahl - Never Ending Story',
-  //   path: './media/neverending.m4a',
-  //   weight: 20,
-  // }, 
-  // {
-  //   owner: 'Anthony',
-  //   title: 'Kina Grannis - Can\'t Help Falling In Love',
-  //   path: './media/song-fallin.m4a',
-  //   weight: 10,
-  // }, 
-  // {
-  //   owner: 'Anthony',
-  //   title: 'UP - Married Life',
-  //   path: './media/up.mp3',
-  //   weight: 10,
-  // }, 
   // {
   //   owner: 'Anthony',
   //   title: 'Si Tu Vois Ma Mère – Tatiana Eva-Marie & Avalon Jazz Band',
@@ -74,7 +75,6 @@ const displayAudioEffect = () => {
 
   const leftCanvas = document.getElementById('js-signature');
   const leftContext = leftCanvas.getContext('2d');
-  // leftCanvas.width = leftCanvas.offsetWidth;
   leftCanvas.width = leftCanvas.offsetWidth;
   leftCanvas.height = leftCanvas.offsetHeight;
 
@@ -163,11 +163,7 @@ const displayAudioEffect = () => {
 
       // After image is loaded, draw it to the canvas
       if (image.complete) { // Only draw image if it's loaded
-        // const imageX = topCanvas.width - image.width - 49; // Position to the right with a 10px margin
-        // const imageY = centerY - image.height / 2;  // Vertically center the image
-
         // Draw the image onto the canvas
-        // leftContext.drawImage(image, imageX, imageY);
         leftContext.drawImage(image, 0, 0);
       }
 
@@ -230,6 +226,7 @@ function fadeOutCircle(i, height) {
 
       setTimeout(()=> {
         $('#js-wave').css('z-index', '9999');
+        $('#js-music-info').removeClass('hidden');
         return fadeOut(100, height);
       }, 1000);
     }, 100);
@@ -277,11 +274,18 @@ function changeBackground() {
 
 function stopMusic() {
   document.getElementById('js-audio').pause();
-  $('#js-btn-mute').hide();
-  $('#js-btn-mute-2').hide();
-  $('#js-owner').hide();
-  $('#js-music-info').hide();
-  $('#js-btn-mute-2').hide();
+  $('#js-stop').addClass('hidden');
+  $('#js-play').removeClass('hidden');
+}
+
+function resumeMusic() {
+  document.getElementById('js-audio').play();
+  $('#js-play').addClass('hidden');
+  $('#js-stop').removeClass('hidden');
+  if (!runDraw) {
+    runDraw = displayAudioEffect();
+  }
+  runDraw();
 }
 
 function toggleFullList() {
@@ -390,9 +394,24 @@ function handleEvent() {
   });
 
   window.onscroll = function (e) { 
-    if (SCROLL_DETECT_DONE) return; 
-    
-    if (window.scrollY > SCROLL_HEIGHT) {
+    const screenHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+    const position = window.scrollY;
+    const waveEl = document.getElementById('js-wave');
+    const btnEl = document.getElementById('js-btn-mute-2');
+
+    if (IS_WAVE_TOP && position > screenHeight * 1.5) {
+      document.getElementById('js-wave-bot').appendChild(waveEl);
+      document.getElementById('js-btn-bot').appendChild(btnEl);
+      IS_WAVE_TOP = false;
+    }
+
+    if (!IS_WAVE_TOP && position < screenHeight * 1.5) {
+      document.getElementById('js-wave-top').appendChild(waveEl);
+      document.getElementById('js-btn-top').appendChild(btnEl);
+      IS_WAVE_TOP = true;
+    }
+
+    if (!SCROLL_DETECT_DONE && position > SCROLL_HEIGHT) {
       changeBackground();
       SCROLL_DETECT_DONE = true;
     }

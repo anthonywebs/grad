@@ -31,16 +31,12 @@
     </div>
     <main role='main'>
       <div id='js-bottom' class=''>
-        <!-- <div id='js-btn-mute'  onclick="stopMusic()" class="fi_short mute_icon hidden" style="background-color:transparent !important;cursor:pointer">
-          <i class="fa fa-stop-circle-o" style="color:rgb(255,255,255,0.6);font-size:28px;"></i>
-          </span>
-        </div> -->
-          <audio
-            id='js-audio'
-            controls hidden
-            src="./media/grad.m4a">
-            Your browser does not support the audio element.
-          </audio>
+        <audio
+          id='js-audio'
+          controls hidden
+          src="./media/grad.m4a">
+          Your browser does not support the audio element.
+        </audio>
   
         <div id="js-cover-greeting" class="new_landing">
           <div id="js-greeting-text" class="new_landing-content">
@@ -65,10 +61,12 @@
             </div>      
           </div>
         </div>
-        <div id="js-wave" class="top-canvas-bg">
+        <div id='js-wave-top' class="wave-container">
+          <div id="js-wave" class="top-canvas-bg">
             <div id='js-top-audio' class='top-canvas-wr'>
               <canvas id='js-signature' class='top-canvas-sig'></canvas>
               <canvas id='js-top-visualizer' class='top-canvas'></canvas>
+            </div>
           </div>
         </div>
 
@@ -82,29 +80,24 @@
 
 
           <div id="js-msg-bottom" class="">
-            <!-- <div id="js-music-info" class="fi_short">
-              <div class="bgcolor_white marquee_title">
-                  <center>Currently playing..</center>
+            <div id="js-btn-top" class="btn-container">
+              <div id='js-btn-mute-2' class="main_flex bgcolor_white">
+                <button id='js-stop' onclick='stopMusic()' class="btn_black_s">
+                  <i class="fa fa-stop-circle-o" style="font-size:22px;"></i>
+                  <section style="line-height: 22px;">&nbsp Stop</section>
+                </button> 
+                <button id='js-play' onclick='resumeMusic()' class="btn_black_s hidden">
+                  <i class="fa fa-play-circle-o" style="font-size:22px;"></i>
+                  <section style="line-height: 22px;">&nbsp Play</section>
+                </button> 
+                &nbsp;&nbsp;&nbsp;
+                <button onclick="playNext()" class="btn_black_s">
+                  <i class="fa fa-fast-forward" style="font-size:16px;margin-top:2px;"></i>
+                  <section style="line-height: 22px;">&nbsp Next</section>
+                </button>
               </div>
-              <div class="bgcolor_white" style="position: relative;">
-                <div class="marquee">
-                  <span id="js-music-title">
-                  </span>
-                </div>
-              </div>
-            </div> -->
-
-            <div id='js-btn-mute-2' class="main_flex bgcolor_white">
-              <button onclick='stopMusic()' class="btn_black_s fi">
-                <i class="fa fa-stop-circle-o" style="font-size:22px;"></i>
-                <section style="line-height: 22px;">&nbsp Stop</section>
-              </button> 
-              &nbsp;&nbsp;&nbsp;
-              <button onclick="playNext()" class="btn_black_s fi">
-                <i class="fa fa-fast-forward" style="font-size:16px;margin-top:2px;"></i>
-                <section style="line-height: 22px;">&nbsp Play Next</section>
-              </button>
             </div>
+
 
             <div class='font_detail main_flex w300 fi_short'>
               PLEASE SCROLL THE SCREEN
@@ -124,11 +117,6 @@
         <div id='js-more-pic' class='more_pic'>
           <div class="bgcolor_white">
             <BR/><BR/>
-            <!-- <div id='js-logo-wrap' class='main_flex' style='background-color:#fff;'>
-              <a href='https://photo.anthonyspace.com'>
-                <img id='js-mobile-logo' class='mobile_icon' src='./img/logo-s-blk.png'>
-              </a>
-            </div><br/><br/> -->
           </div>
 
           <center>
@@ -154,18 +142,28 @@
               </div>
               <img id='js-6' class='inline_center img_l img_no' src=""><BR/>
               <img id='js-7' class='inline_center img_l img_no' src=""><BR/>
-              <!-- <img id='js-8' class='inline_center img_l img_no margin_top_neg' src=""><BR/> -->
-              <!-- <img id='js-9' class='inline_center img_l img_no margin_top_neg' src="./img/statue.jpg"><BR/>
-              <img id='js-10' class='inline_center img_l img_no margin_top_neg' src="./img/23.jpg"><BR/>
-              <img id='js-11' class='inline_center img_l img_no margin_top_neg' src="./img/red.jpg"><BR/>
-              <img id='js-12' class='inline_center img_l img_no margin_top_neg' src="./img/fly.jpg"><BR/>
-              <img id='js-13' class='inline_center img_l img_no margin_top_neg' src="./img/green.jpg"><BR/>
-              <img id='js-14' class='inline_center img_l img_no margin_top_neg' src="./img/back.jpg"><BR/> -->
             </div>
           </center>            
         </div>
       </div>
     </main>
+
+    <div id="js-music-info" class="music-text fi_short hidden">
+      <div id='js-wave-bot' class="wave-container">
+      </div>
+      <div class="bgcolor_white marquee_title">
+          <center>Currently playing..</center>
+      </div>
+      <div class="bgcolor_white" style="position: relative;">
+        <div class="marquee">
+          <span id="js-music-title">
+          </span>
+        </div>
+      </div>
+      <div id="js-btn-bot" class="btn-container">
+      </div>
+    </div>
+
     <div id='js-copy-right' class='copy_right bgcolor_white fi hidden'>
     © 2025 Anthony Photography</div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
