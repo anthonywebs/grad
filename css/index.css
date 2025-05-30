@@ -114,7 +114,6 @@ body {
 .greeting {
   background-color: #fff;
   padding-bottom: 10vh;
-  border-top: 1px solid #DDDDDD;
   z-index: 90;
   position: relative;
 }
@@ -168,10 +167,9 @@ body {
 }
 
 .landing_logo {
-  width: 100%;
-  margin-top: 200px;
-  max-width: 480px;
-  margin-bottom: 12px;
+  /* width: 100%; */
+  margin-top: 12px;
+  margin-bottom: 120px;
 }
 
 .img_p, .img_l {
@@ -228,7 +226,7 @@ body {
 }
 
 .new_landing-content {
-  margin-top: 256px;
+  margin-top: 18vh;
   /* margin-top: 50%; */
   z-index: 90;
 }
@@ -804,3 +802,43 @@ a:focus  {
   outline: none;
   opacity: 0.9;
 }
+
+.top-canvas-bg {
+  /* border-top: 1px solid #DDDDDD; */
+  width: 100%;
+  position: relative;
+  background-color: #fff;
+}
+
+.top-canvas-wr {
+  display: flex;
+  position: relative;
+  padding-top: 1rem;
+  /* position: fixed;
+  top: 8%;
+  right: 12%; */
+  width: 220px;  
+  height: 100px;  
+  margin-left: auto;
+  margin-right: auto;
+  /* border: 1px solid gray; */
+  /* justify-content: center;
+  align-items: center; */
+}
+
+.top-canvas {
+  width: 100px;
+  height: 100px;
+}
+
+.top-canvas-sig {
+  width: 120px;
+  height: 100px;
+}
+
+/* .top-canvas {
+  cursor: pointer;
+  width: 150px;
+  height: 100px;
+  border: 1px solid red;
+} */

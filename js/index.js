@@ -55,6 +55,133 @@ function morePicBanner() {
   `);
 }
 
+let runDraw = undefined; // draw closure
+
+const runEveryX = freq => {
+    let count = 0;
+    return () => {
+        count = (count + 1) % freq;
+        return count === 0; 
+    }
+}
+
+const displayAudioEffect = () => {
+
+  const topCanvas = document.getElementById('js-top-visualizer');
+  const topContext = topCanvas.getContext('2d');
+  topCanvas.width = topCanvas.offsetWidth;
+  topCanvas.height = topCanvas.offsetHeight;
+
+  const leftCanvas = document.getElementById('js-signature');
+  const leftContext = leftCanvas.getContext('2d');
+  // leftCanvas.width = leftCanvas.offsetWidth;
+  leftCanvas.width = leftCanvas.offsetWidth;
+  leftCanvas.height = leftCanvas.offsetHeight;
+
+  // Connect the audio source to the analyser node
+  const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+  const analyser = audioContext.createAnalyser();
+  const audioEl = document.getElementById('js-audio');
+  const audioSource = audioContext.createMediaElementSource(audioEl);
+  audioSource.connect(analyser);
+  analyser.connect(audioContext.destination);
+
+  // Set up the analyser node
+  analyser.fftSize = 256; // default 256
+  const bufferLength = analyser.frequencyBinCount - 38; // 90
+  const dataArray = new Uint8Array(bufferLength); 
+
+  const runThis = runEveryX(2); // 60fps
+
+
+  // for small top control
+  const centerY = topCanvas.height / 2;
+  const peakFactor = 0.04; // peak length
+  const peakCount = 30; // number of points
+  const peakMod = bufferLength / peakCount;
+  const startX = 20;
+
+    // Load the image of "Diane" once
+  const image = new Image();
+  image.src = '/img/diane2.png';  // Path to your "Diane" image
+  
+  // Wait for the image to load before using it
+  image.onload = () => {
+    // Image is ready to be drawn on the canvas
+    console.log('Image loaded successfully');
+  };
+
+  // Draw the js-visualizer
+  const draw = () => {
+    if (audioEl.paused) {
+      // pauseMusic();
+      return;
+    }
+    
+    analyser.getByteFrequencyData(dataArray);
+
+    if (runThis()) {
+    // if (true) { // for now, full fames 128fps
+      
+      // top control
+      topContext.clearRect(0, 0, topCanvas.width, topCanvas.height);
+
+
+      // topContext.strokeStyle = '#ff5a00';
+      topContext.strokeStyle = '#000';
+
+      topContext.lineWidth = !isLandscape() ? 5: 7; // circle width
+      topContext.lineJoin = "round";
+
+      topContext.lineWidth = 1; // wave line width
+
+      let togglePeak = -1;
+      topContext.beginPath();
+      topContext.moveTo(0, centerY);
+
+      topContext.lineTo(startX, centerY);
+
+
+// console.log("AK: Buf", bufferLength)
+      for (let i = 0; i < bufferLength - 10; i++) {
+        // small top control
+        if (i > 0 && i % peakMod === 0) {
+          let dist = dataArray[i];
+          dist = dist > 64 ? dist - 64 : 0; // make wave look bigger diff
+          const peakY = dist * peakFactor * togglePeak;
+          togglePeak *= -1;
+          topContext.lineTo(startX + topCanvas.width * i / bufferLength, centerY - peakY);
+        }
+      }
+      topContext.moveTo(bufferLength, centerY);
+      topContext.moveTo(bufferLength + 130, centerY);
+
+
+
+      topContext.stroke();
+      topContext.closePath();
+
+      // After image is loaded, draw it to the canvas
+      if (image.complete) { // Only draw image if it's loaded
+        // const imageX = topCanvas.width - image.width - 49; // Position to the right with a 10px margin
+        // const imageY = centerY - image.height / 2;  // Vertically center the image
+
+        // Draw the image onto the canvas
+        // leftContext.drawImage(image, imageX, imageY);
+        leftContext.drawImage(image, 0, 0);
+      }
+
+      
+    }
+    
+
+    requestAnimationFrame(draw);  // i don't want recursion, but no choice
+  }
+
+  return draw; // make closure
+}
+
+
 function playNext() {
   $('#js-music-info').css('display', 'none');
   SONG_TRACK++;
@@ -64,30 +191,6 @@ function playNext() {
   $('#js-owner').text(SONG_LIST[SONG_TRACK].owner);
   $('#js-music-title').text(SONG_LIST[SONG_TRACK].title);    
   $('#js-music-info').css('display', 'block');
-}
-
-function fadeOut3(i, height) {
-  if (i <= 0) {
-    setTimeout(() => {
-      // $('#js-landing').css('position', 'fixed');
-      // $('#js-cover-greeting').css('display', 'none');
-      $('#js-page-loader').css('display', 'none');
-      $('#js-more-pic').css('display', 'block');
-      $('#js-btn-mute').css('display', 'flex');
-      $('#js-msg-bottom').css('display', 'block');
-      $('#js-greeting').css('display', 'block');
-      $('#js-copy-right').css('display', 'block');
-
-      $('#js-landing').css('height', height);
-      return;
-      }, 200);
-      return;
-  }
-
-  setTimeout(() => {
-    $('#js-cover-greeting').css('opacity', i*0.01);
-    fadeOut3(i-1, height);
-  }, 15);
 }
 
 
@@ -112,6 +215,7 @@ function fadeOutCircle(i, height) {
   if (i <= 0) {
     $('#js-cover-greeting').css('background-image', `url('./img/main-2${!isLandscape() ? 'm' : ''}.jpg')`);
     $('#js-cover-greeting').css('opacity', 1);
+
     setTimeout(()=>{
       $('#js-landing').css('background-image', `url('./img/main-4${!isLandscape() ? 'm' : ''}.jpg')`);
 
@@ -125,6 +229,7 @@ function fadeOutCircle(i, height) {
       $('#js-landing').css('height', height);
 
       setTimeout(()=> {
+        $('#js-wave').css('z-index', '9999');
         return fadeOut(100, height);
       }, 1000);
     }, 100);
@@ -150,8 +255,13 @@ function playMusic() {
   const maxHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
   
   $('#js-landing').css('height', maxHeight);
+
+  if (!runDraw) {
+    runDraw = displayAudioEffect();
+  }
+  runDraw();
   
-  fadeOutCircle(100, height);
+  fadeOutCircle(1, height); 
 }
 
 function changeBackground() {
@@ -233,7 +343,6 @@ function renderMainImage() {
   // $('#js-6').attr('src', getSrc('9-group'));
   $('#js-7').attr('src', getSrc('5-sol'));
 
-
   
   if (!isLandscape) {
     $('.intro').css('object-fit', `contain`);
@@ -312,4 +421,11 @@ async function slideShowPlay() {
 $(_=> {
   handleEvent();
   renderMainImage();
+
+  setTimeout(() => {
+    const topCanvas = document.getElementById('js-top-visualizer');
+    console.log("offsetWidth after DOM ready:", topCanvas.offsetWidth);
+
+  }, 1000);
+
 });
