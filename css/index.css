@@ -114,7 +114,6 @@ body {
 
 .greeting {
   background-color: #fff;
-  padding-bottom: 10vh;
   z-index: 90;
   position: relative;
 }
@@ -157,8 +156,6 @@ body {
   justify-content: center;
   /* z-index: 1; */
 }
-
-
 
 .inline_center {
   text-align: center;
@@ -214,7 +211,37 @@ body {
   padding-bottom: 0 !important;
 }
 
-.new_landing {
+#js-bottom {
+  position: relative;
+}
+
+.cover-greeting-3 {
+  position: fixed;
+  top:0;
+  left:0;
+  background: url('../img/main-4.jpg') no-repeat center top;
+  background-color: white;
+  width: 100vw;
+  height: 100vh;
+  padding-top:112px;
+  opacity: 0;
+  z-index: 82;  
+}
+
+.cover-greeting-2 {
+  position: fixed;
+  top:0;
+  left:0;
+  background: url('../img/main-2.jpg') no-repeat center top;
+  background-color: white;
+  width: 100vw;
+  height: 100vh;
+  padding-top:112px;
+  opacity: 0;
+  z-index: 81;  
+}
+
+.cover-greeting {
   position: fixed;
   top:0;
   left:0;
@@ -226,8 +253,9 @@ body {
   z-index: 80;  
 }
 
-.new_landing-content {
-  margin-top: 18vh;
+.cover-greeting-content {
+  /* margin-top: 18vh; */
+  margin-top: 22vh;
   /* margin-top: 50%; */
   z-index: 90;
 }
@@ -273,7 +301,7 @@ body {
   /* height: 100vh; */
 
   /* z-index: 1; */
-  background: url('../img/main-2.jpg') no-repeat center top;
+  /* background: url('../img/main-2.jpg') no-repeat center top; */
   /* background-attachment: fixed; */
   background-color: white;
 
@@ -355,17 +383,6 @@ body {
   width: 100%;
   height: 100%;
   z-index: 90;
-}
-
-.banner {
-  z-index: 1;
-  background: url('../img/bg-flower.jpg');
-  background-repeat: no-repeat;
-  /* background-position: right 0 top; */
-  background-position: center;
-  background-position: top;
-  background-attachment: fixed;
-  background-color: white;
 }
 
 /* Banner Description */
@@ -624,8 +641,8 @@ ul {
   border: 1px solid #2a2c2d;;
   color: #2a2c2d;
   background-color: transparent;
-  margin-top: 12px;
-  margin-bottom: 36px;
+  margin-top: 8px;
+  margin-bottom: 20px;
 }
 
 .btn_black_s:hover,
@@ -855,6 +872,6 @@ a:focus  {
 }
 
 .btn-container {
-  min-height: 80px;
+  min-height: 60px;
   position: relative;
 }

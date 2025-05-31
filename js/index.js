@@ -48,14 +48,6 @@ const SONG_LIST = [
 ];
 let SONG_TRACK = 0;
 
-function morePicBanner() {
-  $('#js-landing').replaceWith(`
-    <div id='js-landing' class='more_intro'>
-      <img id='js-main-img' class='more_intro_img' src="./img/capemay.jpg">
-    </div>
-  `);
-}
-
 let runDraw = undefined; // draw closure
 
 const runEveryX = freq => {
@@ -91,7 +83,7 @@ const displayAudioEffect = () => {
   const bufferLength = analyser.frequencyBinCount - 38; // 90
   const dataArray = new Uint8Array(bufferLength); 
 
-  const runThis = runEveryX(2); // 60fps
+  const runThis = runEveryX(4); // 60fps
 
 
   // for small top control
@@ -108,7 +100,7 @@ const displayAudioEffect = () => {
   // Wait for the image to load before using it
   image.onload = () => {
     // Image is ready to be drawn on the canvas
-    console.log('Image loaded successfully');
+    // console.log('Image loaded successfully');
   };
 
   // Draw the js-visualizer
@@ -142,7 +134,6 @@ const displayAudioEffect = () => {
       topContext.lineTo(startX, centerY);
 
 
-// console.log("AK: Buf", bufferLength)
       for (let i = 0; i < bufferLength - 10; i++) {
         // small top control
         if (i > 0 && i % peakMod === 0) {
@@ -189,54 +180,39 @@ function playNext() {
   $('#js-music-info').css('display', 'block');
 }
 
+function fadeOut2(i) {
+  if (i >= 1) {
+    // $('#js-page-loader').css('display', 'none');
+    $('#js-more-pic').css('display', 'block');
+    $('#js-btn-mute-2').css('display', 'flex');
+    $('#js-msg-bottom').css('display', 'block');
+    $('#js-greeting').css('display', 'block');
+    $('#js-copy-right').css('display', 'block');
+    $('#js-wave').css('z-index', '9999');
+    $('#js-music-info').removeClass('hidden');
 
-function fadeOut(i, height) {
-  if (i <= 0) {
-    //   $('#js-cover-greeting').css('background-image', 'url(' + './img/main-3.jpg' + ')');
-    // $('#js-cover-greeting').css('opacity', 1);
-
-    setTimeout(() => {
-      return;
-      }, 200);
-      return;
-  }
-
-  setTimeout(() => {
-    $('#js-cover-greeting').css('opacity', i*0.01);
-    fadeOut(i-1, height);
-  }, 15);
-}
-
-function fadeOutCircle(i, height) {
-  if (i <= 0) {
-    $('#js-cover-greeting').css('background-image', `url('./img/main-2${!isLandscape() ? 'm' : ''}.jpg')`);
-    $('#js-cover-greeting').css('opacity', 1);
-
-    setTimeout(()=>{
-      $('#js-landing').css('background-image', `url('./img/main-4${!isLandscape() ? 'm' : ''}.jpg')`);
-
-      $('#js-page-loader').css('display', 'none');
-      $('#js-more-pic').css('display', 'block');
-      $('#js-btn-mute').css('display', 'flex');
-      $('#js-msg-bottom').css('display', 'block');
-      $('#js-greeting').css('display', 'block');
-      $('#js-copy-right').css('display', 'block');
-
-      $('#js-landing').css('height', height);
-
-      setTimeout(()=> {
-        $('#js-wave').css('z-index', '9999');
-        $('#js-music-info').removeClass('hidden');
-        return fadeOut(100, height);
-      }, 1000);
-    }, 100);
     return;
   }
-  setTimeout(() => {
-    $('#js-cover-greeting').css('opacity', i*0.01);
-    fadeOutCircle(i-1, height);
-  }, i > 80 ? 50 : 10);
 
+  setTimeout(() => {
+    $('#js-cover-greeting-3').css('opacity', i);
+    fadeOut2(i + 0.02);
+  }, 15)
+}
+
+// i opacity
+function fadeOut1(i) {
+  if (i >= 1) {
+    return setTimeout(() => {
+      $('#js-cover-greeting-3').removeClass('hidden');
+      return fadeOut2(0);
+    }, 1000)
+  }
+
+  setTimeout(() => {
+    $('#js-cover-greeting-2').css('opacity', i);
+    fadeOut1(i + 0.02);
+  }, i < 0.2 ? 100 : 15)
 
 }
 function playMusic() {
@@ -248,28 +224,21 @@ function playMusic() {
   $('.intro').css('display', 'none');
   $('#js-main-img').addClass('fi_short');  
   
-  const height =  $('#js-landing').height();
   const maxHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
   
-  $('#js-landing').css('height', maxHeight);
-
   if (!runDraw) {
     runDraw = displayAudioEffect();
   }
   runDraw();
-  
-  fadeOutCircle(1, height); 
+
+  $('#js-cover-greeting-2').removeClass('hidden');
+  fadeOut1(0); 
 }
 
 function changeBackground() {
   SLIDE_STOP = true; // stop slide show
-  // $('#js-main-img1').hide();
-  // $('#js-main-img2').hide();
-  // $('#js-main-img3').hide();
 
-  $('#js-landing').css('background', 'none');
-  $('#js-main-img-next').css('display', 'block');
-
+  $('#js-cover-greeting-3').css('background-image', `url('./img/main_next${!isLandscape() ? 'm' : ''}.jpg')`);
 }
 
 function stopMusic() {
@@ -326,36 +295,33 @@ function renderMainImage() {
   // const greetingTopFactor = isLandscape ? 0.7 : 0.53;
   SCROLL_HEIGHT = height*greetingTopFactor*1.1;
 
-  
-  
-  $('#js-landing').css('height', isLandscape ? height*greetingTopFactor*1.05 : '80vh');
   $('#js-bottom').css('margin-top', height*greetingTopFactor*1.05);
   // $('.intro').css('height', height * heightFactor);
   // $('.intro').css('bottom', bottomFactor);
   $('.intro').css('top', 0);
   // $('.intro').css('height', isLandscape ? '796px' : '1vh');
 
-  // $('#js-0').attr('src', getSrc('1-horse'));
   $('#js-1').attr('src', getSrc('1-book2'));
   // $('#js-2').attr('src', getSrc('2-book'));
   $('#js-2').attr('src', getSrc('1-window'));
   $('#js-4').attr('src', getSrc('6-bart'));
   $('#js-5').attr('src', getSrc('1-horse'));
   $('#js-5a').attr('src', getSrc('7-class'));
-  // $('#js-6').attr('src', getSrc('1-horse'));
   $('#js-6').attr('src', getSrc('8-thennow'));
-  // $('#js-6').attr('src', getSrc('9-group'));
+  $('#js-6a').attr('src', getSrc('9-group'));
   $('#js-7').attr('src', getSrc('5-sol'));
 
   
   if (!isLandscape) {
     $('.intro').css('object-fit', `contain`);
-    $('#js-landing').css('background-image', `url('./img/main-2m.jpg')`);
     $('#js-main-img-next').attr('src', './img/main_nextm.jpg');
 
     $('#js-cover-greeting').css('background-size', 'contain');
-    $('#js-landing').css('background-size', 'contain');
     $('#js-cover-greeting').css('background-image', 'url(' + './img/main-1m.jpg' + ')');
+    $('#js-cover-greeting-2').css('background-image', 'url(' + './img/main-2m.jpg' + ')');
+    $('#js-cover-greeting-3').css('background-image', 'url(' + './img/main-4m.jpg' + ')');
+    $('#js-cover-greeting-2').css('background-size', 'contain');
+    $('#js-cover-greeting-3').css('background-size', 'contain');
     $('#js-greeting').css('background-position', 'top right');
     $('#js-greeting').css('background-size', '100%');
     $('#js-mobile-logo').css('width', '240px');
