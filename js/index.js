@@ -291,11 +291,11 @@ function renderMainImage() {
   const isLandscape = width > height;
   const heightFactor = isLandscape ? 0.8 : 0.6;
   const bottomFactor = isLandscape ? '20%' : '40%';
-  const greetingTopFactor = isLandscape ? 0.65 : 0.63;
+  const greetingTopFactor = isLandscape ? 0.64 : 0.63;
   // const greetingTopFactor = isLandscape ? 0.7 : 0.53;
   SCROLL_HEIGHT = height*greetingTopFactor*1.1;
 
-  $('#js-bottom').css('margin-top', height*greetingTopFactor*1.05);
+  $('#js-bottom').css('margin-top', height*greetingTopFactor*1.04);
   // $('.intro').css('height', height * heightFactor);
   // $('.intro').css('bottom', bottomFactor);
   $('.intro').css('top', 0);
