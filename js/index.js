@@ -291,7 +291,7 @@ function renderMainImage() {
   const isLandscape = width > height;
   const heightFactor = isLandscape ? 0.8 : 0.6;
   const bottomFactor = isLandscape ? '20%' : '40%';
-  const greetingTopFactor = isLandscape ? 0.65 : 0.68;
+  const greetingTopFactor = isLandscape ? 0.65 : 0.63;
   // const greetingTopFactor = isLandscape ? 0.7 : 0.53;
   SCROLL_HEIGHT = height*greetingTopFactor*1.1;
 
